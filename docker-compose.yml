@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  cloud-weather-postgres:
+    container_name: db_postgres_microservices
+    image: debezium/postgres:13-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DATABASE=cloud_weather_dev
+      - POSTGRES_USER=cloud_weather_dev
+      - POSTGRES_PASSWORD=cloud_weather_dev
+    volumes:
+      - postgres-data:/data/db
+
+  pgadmin:
+    container_name: pg_admin_microservice
+    image: dpage/pgadmin4
+    ports:
+      - 8088:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=correo@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=secreto
+    depends_on:
+      - "cloud-weather-postgres"
+
+volumes:
+  postgres-data:
