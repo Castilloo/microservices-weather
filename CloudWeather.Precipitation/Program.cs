@@ -1,10 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Mvc;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
+app.MapGet("/observation/{zip}", (string zip, [FromQuery] int? days) => {
+    return Results.Ok(zip);
+});
 
 app.Run();
 
